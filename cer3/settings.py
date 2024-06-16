@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'cer3.wsgi.application'
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://postgres:miau123.@cer3_db:5353/cer3')
+    'default': dj_database_url.config(default='postgres://postgres:miau123.@cer3_db:5432/cer3')
 }
 
 
