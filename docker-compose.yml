@@ -10,10 +10,10 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - bd
+      - db
 
-  bd:
-    container_name: cer2_bd
+  db:
+    container_name: cer2_db
     image: postgres:14
     ports:
       - 5432:5432
