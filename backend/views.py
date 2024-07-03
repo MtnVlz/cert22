@@ -1,10 +1,17 @@
 from rest_framework import viewsets, generics
+from rest_framework.views import APIView 
+from rest_framework.response import Response 
+from rest_framework.renderers import JSONRenderer 
 from backend.models import Number, Pokemon
 from backend.serializers.NumberSerializer import NumberSerializer
 from backend.serializers.PokemonSerializer import PokemonSerializer
+from backend.renderers import PokemonHTMLRenderer
+
 
 import random
 import string
+import math
+
 
 class NumberViewSet(viewsets.ModelViewSet):
     queryset = Number.objects.all()
@@ -37,3 +44,17 @@ class CreateRandomNumber(generics.CreateAPIView):
         # Guardar el número y la letra aleatorios en la base de datos
         serializer.save(number=random_number, letter=random_letter)
 
+
+
+# vista para la imagen
+
+class PokemonListView(APIView):
+    renderer_classes = [PokemonHTMLRenderer, JSONRenderer]
+    template_name = 'pokemon_list.html'
+
+    def get (self,request):
+        pokemons = Pokemon.objects.all()
+        serializer = PokemonSerializer(pokemons, many=True)
+        if request.accepted_renderer.format == 'html':
+            return Response({'pokemons': serializer.data})
+        return Response(serializer.data)

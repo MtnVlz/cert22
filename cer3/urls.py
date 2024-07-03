@@ -20,7 +20,7 @@ from django.urls import path, include
 
 from backend.views import *
 
-from backend.views import NumberViewSet, CreateRandomNumber, PokemonViewSet
+from backend.views import NumberViewSet, CreateRandomNumber, PokemonViewSet, PokemonListView
 
 router = DefaultRouter()
 router.register(r'numbers', NumberViewSet)
@@ -30,4 +30,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('random/', CreateRandomNumber.as_view(), name='create_random_number'),
     path('admin/', admin.site.urls),
+    path('pokemon-list/', PokemonListView.as_view(), name='pokemon_list'),
 ]
